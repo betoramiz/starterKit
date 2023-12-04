@@ -19,5 +19,12 @@ namespace Backend.Api.Controllers
             return result.Match<IActionResult>(
                 Ok, error => Problem());
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var result = await _mediator.Send(new GetAll.Query());
+            return result.Match<IActionResult>(Ok, error => Problem());
+        }
     }
 }
