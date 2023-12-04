@@ -12,7 +12,7 @@ namespace Backend.Api.Controllers
 
         public FeatureController(ISender mediator) => _mediator = mediator;
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<IActionResult> Create(Create.Command command)
         {
             var result = await _mediator.Send(command);

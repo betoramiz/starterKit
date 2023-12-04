@@ -7,10 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
     builder.Services.AddEndpointsApiExplorer();
     // builder.Services.AddSwaggerGen();
 
-    var connectionString = builder.Configuration.GetConnectionString("Connection");
     builder.Services
         .AddApplication()
-        .AddInfrastructure(connectionString);
+        .AddInfrastructure(builder.Configuration);
 };
 
 var app = builder.Build();
@@ -21,8 +20,8 @@ var app = builder.Build();
     //     app.UseSwaggerUI();
     // }
 
-    app.UseHttpsRedirection();
-    app.UseAuthorization();
+    // app.UseHttpsRedirection();
+    // app.UseAuthorization();
     app.MapControllers();
 
     app.Run();

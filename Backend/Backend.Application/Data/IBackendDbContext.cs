@@ -2,7 +2,7 @@
 
 namespace Backend.Application.Data;
 
-public interface IBackendDBContext
+public interface IBackendDbContext
 {
     public DbSet<Domain.Feature.Feature> Features { get; set; }
     

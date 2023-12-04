@@ -12,8 +12,8 @@ public class Create
 
     public class CommandHandler : IRequestHandler<Command, ErrorOr<Response>>
     {
-        private readonly IBackendDBContext _context;
-        public CommandHandler(IBackendDBContext context) => _context = context;
+        private readonly IBackendDbContext _context;
+        public CommandHandler(IBackendDbContext context) => _context = context;
 
         public async Task<ErrorOr<Response>> Handle(Command request, CancellationToken cancellationToken)
         {

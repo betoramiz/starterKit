@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Infrastructure.Common;
 
-public class BackendContext: DbContext, IBackendDBContext
+public class BackendContext: DbContext, IBackendDbContext
 {
     public BackendContext(DbContextOptions<BackendContext> options) : base(options) { }
 
