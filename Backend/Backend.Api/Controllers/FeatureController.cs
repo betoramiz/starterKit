@@ -6,7 +6,7 @@ namespace Backend.Api.Controllers
 {
     [Route("api/feature")]
     [ApiController]
-    public class FeatureController : ControllerBase
+    public class FeatureController : ApiController
     {
         private readonly ISender _mediator;
 

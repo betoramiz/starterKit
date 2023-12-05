@@ -1,4 +1,6 @@
-﻿namespace Backend.Domain.Feature;
+﻿using ErrorOr;
+
+namespace Backend.Domain.Feature;
 
 public class Feature
 {
@@ -10,8 +12,11 @@ public class Feature
         Name = name;
     }
 
-    public static Feature Create(string name)
+    public static ErrorOr<Feature> Create(string name)
     {
+        if (string.IsNullOrEmpty(name))
+            return FeatureErrors.FeatureSomeError;
+        
         return new Feature(name);
     }
 }

@@ -18,10 +18,13 @@ public class Create
         public async Task<ErrorOr<Response>> Handle(Command request, CancellationToken cancellationToken)
         {
             var newEntity = Domain.Feature.Feature.Create(request.Name);
-            _context.Features.Add(newEntity);
+            if (newEntity.IsError)
+                return newEntity.Errors;
+            
+            _context.Features.Add(newEntity.Value);
             await _context.SaveChangesAsync(cancellationToken);
 
-            return new Response(newEntity.Id);
+            return new Response(newEntity.Value.Id);
         }
     }
 }
