@@ -1,6 +1,8 @@
 ﻿using Backend.Application.Data;
 using Backend.Infrastructure.Common;
+using Backend.Infrastructure.Interceptors;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,13 +21,15 @@ public static class DependencyInjection
     private static IServiceCollection AddPersistence(this IServiceCollection services, string? connectionString)
     {
         
-        services.AddDbContext<BackendContext>(options =>
+        services.AddDbContext<BackendContext>((serviceProvider, options) =>
         {
+            options.AddInterceptors(serviceProvider.GetService<ISaveChangesInterceptor>());
             options.UseSqlServer(connectionString,
                 x => x.MigrationsAssembly("Backend.Infrastructure"));
         });
         
         services.AddScoped<IBackendDbContext>(provider => provider.GetRequiredService<BackendContext>());
+        services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventsInterceptor>();
 
         return services;
     }
